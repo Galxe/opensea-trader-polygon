@@ -1,0 +1,22 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ZeroExFeeWrapper
+    network: matic
+    source:
+      address: "0xF715bEb51EC8F63317d66f491E37e7BB048fCc2d"
+      abi: ZeroExFeeWrapper
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+
+      abis:
+        - name: ZeroExFeeWrapper
+          file: ./abis/ZeroExFeeWrapper.json
+      eventHandlers:
+
+      file: ./src/mapping.ts
