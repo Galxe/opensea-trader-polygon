@@ -1,31 +1,47 @@
-// import { BigInt } from "@graphprotocol/graph-ts"
 import { log } from '@graphprotocol/graph-ts'
-import { MatchOrdersCall } from "../generated/ZeroExFeeWrapper/ZeroExFeeWrapper"
-import { Buyer, Saler } from "../generated/schema"
+import { Fill } from "../generated/Exchange/Exchange"
+import { Buyer, Seller, Transaction } from "../generated/schema"
 
-export function handleMatchOrders(call: MatchOrdersCall): void {
-    let buyerAddr = call.inputs.leftOrder.makerAddress.toHexString();
-    let salerAddr = call.inputs.rightOrder.makerAddress.toHexString();
-    let tx = call.transaction.hash;
+const OPENSEA_ZeroExFeeWrapper_ADDR = "0xf715beb51ec8f63317d66f491e37e7bb048fcc2d";
 
-    log.debug('====> buyer {} saler {} tx {}', [buyerAddr, salerAddr, tx.toHexString()])
+export function handleFill(event: Fill): void {
+    if (event.transaction.to.toHexString() != OPENSEA_ZeroExFeeWrapper_ADDR) {
+        return;
+    }
+    
+    // first is buyer
+    // second is seller
+    let traderAddr = event.params.makerAddress.toHexString();
+    let txHash = event.transaction.hash.toHexString();
 
-    // update buyer
-    let buyer = Buyer.load(buyerAddr);
+    let tx = Transaction.load(txHash);
+    if (tx == null) {
+        // buyer
+        tx = new Transaction(txHash);
+        tx.buyer = traderAddr;
+        tx.timestamp = event.block.timestamp;
+        saveBuyer(traderAddr);
+    } else {
+        // seller
+        tx.seller = traderAddr;
+        saveSeller(traderAddr);
+    }
+    tx.save();
+}
+
+function saveBuyer(addr: string): void {
+    let buyer = Buyer.load(addr);
     if (buyer == null) {
-        buyer = new Buyer(buyerAddr);
-        buyer.transactions = new Array();
+        buyer = new Buyer(addr);
     }
-    buyer.transactions.push(tx);
     buyer.save();
+}
 
-    // update saler
-    let saler = Saler.load(salerAddr);
-    if (saler == null) {
-        saler = new Saler(salerAddr);
-        saler.transactions = new Array();
+function saveSeller(addr: string): void {
+    let seller = Seller.load(addr);
+    if (seller == null) {
+        seller = new Seller(addr);
     }
-    saler.transactions.push(tx);
-    saler.save();
+    seller.save();
 }
 

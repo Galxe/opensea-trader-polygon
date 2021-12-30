@@ -1,9 +1,16 @@
-type Buyer @entity {
+type Transaction @entity {
   id: ID!
-  transactions: [Bytes!]!
+  buyer: Buyer
+  seller: Seller
+  timestamp: BigInt!
 }
 
-type Saler @entity {
+type Buyer @entity {
   id: ID!
-  transactions: [Bytes!]!
+  transactions: [Transaction!]! @derivedFrom(field: "buyer")
+}
+
+type Seller @entity {
+  id: ID!
+  transactions: [Transaction!]! @derivedFrom(field: "seller")
 }

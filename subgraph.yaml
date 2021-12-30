@@ -1,26 +1,27 @@
 specVersion: 0.0.2
+description: Opensea seller, buyer and trade transaction on polygon
+repository: https://github.com/NFTGalaxy/opensea-polygon
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: ZeroExFeeWrapper
+    name: Exchange
     network: matic
     source:
-      address: "0xF715bEb51EC8F63317d66f491E37e7BB048fCc2d"
-      abi: ZeroExFeeWrapper
-      startBlock: 16262520
+      address: "0xfede379e48C873C75F3cc0C81F7C784aD730a8F7"
+      abi: Exchange
+      startBlock: 7481837
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - Buyer
-        - Saler
+        - Seller
       abis:
-        - name: ZeroExFeeWrapper
-          file: ./abis/ZeroExFeeWrapper.json
-      # eventHandlers:
-      callHandlers:
-        - function: matchOrders((address,address,address,address,uint256,uint256,uint256,uint256,uint256,uint256,bytes,bytes,bytes,bytes),(address,address,address,address,uint256,uint256,uint256,uint256,uint256,uint256,bytes,bytes,bytes,bytes),bytes,bytes,(address,uint256)[],address)
-          handler: handleMatchOrders
+        - name: Exchange
+          file: ./abis/Exchange.json
+      eventHandlers:
+        - event: Fill(indexed address,indexed address,bytes,bytes,bytes,bytes,indexed bytes32,address,address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleFill
       file: ./src/mapping.ts
