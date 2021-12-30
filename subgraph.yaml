@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 description: Opensea seller, buyer and trade transaction on polygon
-repository: https://github.com/NFTGalaxy/opensea-polygon
+repository: https://github.com/ProjectGalaxyHQ/opensea-trader-polygon
 schema:
   file: ./schema.graphql
 dataSources:
