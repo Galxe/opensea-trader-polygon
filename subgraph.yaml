@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -8,15 +8,19 @@ dataSources:
     source:
       address: "0xF715bEb51EC8F63317d66f491E37e7BB048fCc2d"
       abi: ZeroExFeeWrapper
+      startBlock: 16262520
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-
+        - Buyer
+        - Saler
       abis:
         - name: ZeroExFeeWrapper
           file: ./abis/ZeroExFeeWrapper.json
-      eventHandlers:
-
+      # eventHandlers:
+      callHandlers:
+        - function: matchOrders((address,address,address,address,uint256,uint256,uint256,uint256,uint256,uint256,bytes,bytes,bytes,bytes),(address,address,address,address,uint256,uint256,uint256,uint256,uint256,uint256,bytes,bytes,bytes,bytes),bytes,bytes,(address,uint256)[],address)
+          handler: handleMatchOrders
       file: ./src/mapping.ts

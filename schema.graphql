@@ -1,5 +1,9 @@
-type ExampleEntity @entity {
+type Buyer @entity {
   id: ID!
-  block: Bytes!
-  transaction: Bytes!
+  transactions: [Bytes!]!
+}
+
+type Saler @entity {
+  id: ID!
+  transactions: [Bytes!]!
 }
