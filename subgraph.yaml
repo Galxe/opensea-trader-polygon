@@ -1,5 +1,5 @@
 specVersion: 0.0.2
-description: Opensea seller, buyer and trade transaction on polygon
+description: Opensea seller, buyer and trade transaction on polygon at Jan 2022
 repository: https://github.com/ProjectGalaxyHQ/opensea-trader-polygon
 schema:
   file: ./schema.graphql
@@ -10,7 +10,7 @@ dataSources:
     source:
       address: "0xfede379e48C873C75F3cc0C81F7C784aD730a8F7"
       abi: Exchange
-      startBlock: 7481837
+      startBlock: 23334000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

@@ -1,9 +1,7 @@
-# Opensea Trader On Polygon
+# Opensea Trader On Polygon at Jan 2022
 Query opensea seller, buyer and trade transactions;
 
 ### Subgraph endpoint: https://thegraph.com/hosted-service/subgraph/nftgalaxy/opensea-polygon
-
-### Warrning: This subgraph may expire at any time
 
 ### Contracts:
 OpenSea ZeroExFeeWrapper: `0xf715beb51ec8f63317d66f491e37e7bb048fcc2d`

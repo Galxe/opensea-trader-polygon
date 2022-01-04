@@ -8,9 +8,11 @@ type Transaction @entity {
 type Buyer @entity {
   id: ID!
   transactions: [Transaction!]! @derivedFrom(field: "buyer")
+  tradeCount: BigInt!
 }
 
 type Seller @entity {
   id: ID!
   transactions: [Transaction!]! @derivedFrom(field: "seller")
+  tradeCount: BigInt!
 }

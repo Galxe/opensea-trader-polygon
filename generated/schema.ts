@@ -124,6 +124,15 @@ export class Buyer extends Entity {
   set transactions(value: Array<string>) {
     this.set("transactions", Value.fromStringArray(value));
   }
+
+  get tradeCount(): BigInt {
+    let value = this.get("tradeCount");
+    return value.toBigInt();
+  }
+
+  set tradeCount(value: BigInt) {
+    this.set("tradeCount", Value.fromBigInt(value));
+  }
 }
 
 export class Seller extends Entity {
@@ -163,5 +172,14 @@ export class Seller extends Entity {
 
   set transactions(value: Array<string>) {
     this.set("transactions", Value.fromStringArray(value));
+  }
+
+  get tradeCount(): BigInt {
+    let value = this.get("tradeCount");
+    return value.toBigInt();
+  }
+
+  set tradeCount(value: BigInt) {
+    this.set("tradeCount", Value.fromBigInt(value));
   }
 }
